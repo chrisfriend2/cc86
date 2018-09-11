@@ -10,8 +10,6 @@ local mem = {}
 for i=0,0xFFFFF do
 	mem[i] = 0
 end
-local file = io.open("BIOS_5150_24APR81_U33.BIN", "rb")
-local data = file:read("*all")
 
 
 
@@ -318,7 +316,7 @@ mem[0xFFFF5] = 0x00
 mem[0xFFFF6] = 0x00
 mem[0xFFFF7] = 0x00
 
-mem[0xB8000] = 00
+mem[0xB8000] = 08
 mem[0xB8001] = 67
 mem[0xB8003] = 58
 mem[0xB8005] = 92
@@ -351,6 +349,23 @@ function disp_vga3()
 	for i=0, 1936, 2 do
 		enc = mem[origin + i]
 		word = mem[(origin + i + 1)]
+		--color
+		if math.floor(enc / 0x10) % 8 == 0 then term.setBackgroundColor(colors.black) end
+		if math.floor(enc / 0x10) % 8 == 1 then term.setBackgroundColor(colors.blue) end
+		if math.floor(enc / 0x10) % 8 == 2 then term.setBackgroundColor(colors.green) end
+		if math.floor(enc / 0x10) % 8 == 3 then term.setBackgroundColor(colors.cyan) end
+		if math.floor(enc / 0x10) % 8 == 4 then term.setBackgroundColor(colors.red) end
+		if math.floor(enc / 0x10) % 8 == 5 then term.setBackgroundColor(colors.magenta) end
+		if math.floor(enc / 0x10) % 8 == 6 then term.setBackgroundColor(colors.brown) end
+		if math.floor(enc / 0x10) % 8 == 7 then term.setBackgroundColor(colors.lightGray) end
+		if math.floor(enc / 0x10) % 8 == 8 then term.setBackgroundColor(colors.gray) end
+		if math.floor(enc / 0x10) % 8 == 9 then term.setBackgroundColor(colors.lightBlue) end
+		if math.floor(enc / 0x10) % 8 == 10 then term.setBackgroundColor(colors.lime) end
+		if math.floor(enc / 0x10) % 8 == 11 then term.setBackgroundColor(colors.lightBlue) end
+		if math.floor(enc / 0x10) % 8 == 12 then term.setBackgroundColor(colors.red) end
+		if math.floor(enc / 0x10) % 8 == 13 then term.setBackgroundColor(colors.pink) end
+		if math.floor(enc / 0x10) % 8 == 14 then term.setBackgroundColor(colors.yellow) end
+		if math.floor(enc / 0x10) % 8 == 15 then term.setBackgroundColor(colors.white) end
 		
 		if math.floor(enc / 128) == 1 then
 			if blink < 32 and blink > 16 then
